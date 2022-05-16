@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit  {
   isSubmitted = false;
 
 
-  constructor(private fb : FormBuilder){}
+  constructor(private fb : FormBuilder, private _snackBar: MatSnackBar){}
 
 
   ngOnInit(): void {
@@ -106,6 +107,8 @@ export class AppComponent implements OnInit  {
       (error) =>{
         console.log("copy failed");
       });
+
+      this._snackBar.open("copied to clipboard", "close" ,{duration: 4000} );
   }
 
 
