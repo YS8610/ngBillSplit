@@ -36,29 +36,23 @@
           </mat-form-field>
         </td>
         <td>
-          <button mat-icon-button color="primary" (click)="onAddFriend()" [disabled]="friends.controls[i]?.invalid">
-          <mat-icon>person_add_alt_1</mat-icon>
+          <button mat-icon-button color="primary" (click)="onAddFriend()" [disabled]="friends.controls[i]?.invalid || i+1!=friends.length">
+            <mat-icon>person_add_alt_1</mat-icon>
           </button>
         </td>
         <td>
           <button mat-icon-button color="primary" (click)="onDeleteFriend(i)" [disabled]="friends.length<2">
-          <mat-icon>person_remove</mat-icon>
+            <mat-icon>person_remove</mat-icon>
           </button>
         </td>
       </tr>
     </ng-container>
   </table>
-  <button mat-stroked-button color="primary" type="submit" [disabled]="billForm.invalid">
+  <button mat-stroked-button color="primary" type="submit" [disabled]="billForm.invalid" (click) = "submitTrue()">
     <mat-icon>calculate</mat-icon>Calculate
   </button>
 </form>
 <mat-divider></mat-divider>
-{{this.billForm.value|json}}
-<br/>
-{{this.billForm.value["friends"]|json}}
-<br/>
-{{this.billForm.value["friends"][0]["paidAmt"]}}
-<br/>
 <mat-card class="card">
   <h1> Bill <span *ngIf='this.billForm.value["place"]!=""'>for {{this.billForm.value["place"]}}</span></h1>
   <p>
@@ -74,20 +68,27 @@
   </p>
   <p>
     Bill = <span *ngFor = 'let friend of this.billForm.value["friends"]'>
-      <ng-container *ngIf="friend['paidAmt']!=0">
+      <ng-container *ngIf="friend['paidAmt']!=0 && isSubmitted">
         + ${{friend["paidAmt"]}}
       </ng-container>
     </span>
     <br/>
-    <ng-container *ngIf="totalBill != 0">= ${{totalBill}}</ng-container>
+    <ng-container *ngIf="totalBill != 0 && isSubmitted">= ${{totalBill}}</ng-container>
     <br/>
     <br/>
     <ng-container *ngIf="individualBill!=0">
       <span *ngFor='let friend of this.billForm.value["friends"]'>
-        {{friend["friendName"]}} bill = ${{individualBill |number:'1.0-2'}} - ${{friend["paidAmt"]}} = ${{individualBill - friend["paidAmt"] |number:'1.0-2'}}
+        <ng-container *ngIf='friend["friendName"]!="" && isSubmitted'>
+          {{friend["friendName"]}} bill = ${{individualBill |number:'1.0-2'}} - ${{friend["paidAmt"]}} = ${{individualBill - friend["paidAmt"] |number:'1.0-2'}}
+        </ng-container>
         <br/>
       </span>
     </ng-container>
   </p>
+  <div fxLayoutAlign="end center" *ngIf="isSubmitted">
+    <button mat-icon-button color="primary" (click) = "onCopy()">
+      <mat-icon>content_copy</mat-icon>
+    </button>
+  </div>
 </mat-card>
 
