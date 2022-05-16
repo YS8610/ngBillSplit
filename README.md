@@ -1,7 +1,12 @@
 # NgBillSplit
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.  
-A Simple web application used for splitting bill among friends. The app will calculate the individual bill and generate a text bill which can be sent in group chat like whatapp, telegram, ... 
+A Simple web application used for splitting bill among friends. The app will calculate the individual bill and generate a text bill which can be copied and sent in group chat like whatapp, telegram, ... Please Check out the website below  
+https://ys8610.github.io/ngBillSplit/
+
+## How To Use
+
+Key in the name of the place. After that, please input the name of the friend who have paid and the amount paid. You also have to enter 0 (for paid amount) for friend who have not paid anything. Do ensure that there is no duplicate entry and every friend involved are inside. After that, hit calculate and the app will calculate the split bill for individual. You can hit the copy icon to copy the bill into clipboard so that you can paste in your messaging app. 
 
 ## Development server
 

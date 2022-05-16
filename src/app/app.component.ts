@@ -69,6 +69,7 @@ export class AppComponent implements OnInit {
     let paymentPart2 = "Bill = "
     let paymentPart3 = "= $" + this.totalBill
     let paymentPart4 = ""
+    let website = "Generated from https://ys8610.github.io/ngBillSplit/"
     this.billForm.value["friends"].forEach( (e:{friendName:string,paidAmt:number,comment:string}) =>{
 
       if (e["paidAmt"] > 0 || e["paidAmt"] < 0){
@@ -88,21 +89,14 @@ export class AppComponent implements OnInit {
         + " bill = $" + this.roundNumber(this.individualBill)
         + "\n"
       }
-
-
     })
-
-    console.log(header)
-    console.log(paymentPart1)
-    console.log(paymentPart2)
-    console.log(paymentPart3)
-    console.log(paymentPart4)
 
     const copyString = header + "\n\n"
                       + paymentPart1
                       + "\n" + paymentPart2
                       + "\n" + paymentPart3 + "\n"
                       + "\n" + paymentPart4
+                      + "\n" + website
 
     navigator.clipboard.writeText(copyString)
       .then( (sucess) =>{
