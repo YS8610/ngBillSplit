@@ -70,18 +70,18 @@
   </span>
   </p>
   <p>
-    Bill = <span *ngFor = 'let friend of this.billForm.value["friends"]'>
-      <ng-container *ngIf="friend['paidAmt']!=0 && isSubmitted">
-        + ${{friend["paidAmt"]}}
+    Bill = <span *ngFor = 'let friend of this.billForm.value["friends"]; let i = index;'>
+      <ng-container *ngIf="friend['paidAmt']!=0 && isSubmitted && billForm.valid">
+        {{i==0?'':'+'}} ${{friend["paidAmt"]}}
       </ng-container>
     </span>
     <br/>
-    <ng-container *ngIf="totalBill != 0 && isSubmitted">= ${{totalBill}}</ng-container>
+    <ng-container *ngIf="totalBill != 0 && isSubmitted  && billForm.valid">= ${{totalBill}}</ng-container>
     <br/>
     <br/>
     <ng-container *ngIf="individualBill!=0">
       <span *ngFor='let friend of this.billForm.value["friends"]'>
-        <ng-container *ngIf='friend["friendName"]!="" && isSubmitted'>
+        <ng-container *ngIf='friend["friendName"]!="" && isSubmitted  && billForm.valid'>
           {{friend["friendName"]}} bill = ${{individualBill |number:'1.0-2'}} - ${{friend["paidAmt"]}} = ${{individualBill - friend["paidAmt"] |number:'1.0-2'}}
         </ng-container>
         <br/>

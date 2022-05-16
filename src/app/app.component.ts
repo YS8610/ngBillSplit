@@ -6,7 +6,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit  {
   title = 'ngBillSplit';
 
   billForm !: FormGroup;
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
       ])
     })
   }
+
 
   get friends(){
     return this.billForm.controls["friends"] as FormArray;
@@ -74,7 +75,7 @@ export class AppComponent implements OnInit {
 
       if (e["paidAmt"] > 0 || e["paidAmt"] < 0){
         paymentPart1 = paymentPart1 + e["friendName"] +" paid $" + e["paidAmt"] + " (" + e["comment"] + ")" +"\n"
-        paymentPart2 = paymentPart2 + "+ $" + e["paidAmt"] + " "
+        paymentPart2 = paymentPart2 + "$" + e["paidAmt"] + " +"
 
         paymentPart4 = paymentPart4
                       + e["friendName"]
@@ -93,7 +94,7 @@ export class AppComponent implements OnInit {
 
     const copyString = header + "\n\n"
                       + paymentPart1
-                      + "\n" + paymentPart2
+                      + "\n" + paymentPart2.substring(0,paymentPart2.length-1)
                       + "\n" + paymentPart3 + "\n"
                       + "\n" + paymentPart4
                       + "\n" + website
