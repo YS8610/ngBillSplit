@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
       friends : this.fb.array([
         this.fb.group({
           friendName : ["",Validators.required],
-          paidAmt : [0,Validators.required],
+          paidAmt : [0,[Validators.min(0),Validators.required],],
           comment : ""
         })
       ])

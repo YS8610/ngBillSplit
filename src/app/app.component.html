@@ -27,6 +27,9 @@
             <mat-label>Amount</mat-label>
             <input matInput type="number" class="example-right-align" placeholder="0" name="paidAmt" formControlName="paidAmt">
             <span matPrefix>$&nbsp;</span>
+            <mat-error *ngIf="friends.controls[i].get('paidAmt')?.invalid && friends.controls[i].get('paidAmt')?.touched">
+              Pls enter positive number
+            </mat-error>
           </mat-form-field>
         </td>
         <td>
