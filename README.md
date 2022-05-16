@@ -1,6 +1,7 @@
 # NgBillSplit
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.  
+A Simple web application used for splitting bill among friends. The app will calculate the individual bill and generate a text bill which can be sent in group chat like whatapp, telegram, ... 
 
 ## Development server
 
