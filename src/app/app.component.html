@@ -61,7 +61,7 @@
   <p>
   <span *ngFor="let friend of this.billForm.value['friends']">
     <ng-container *ngIf="friend['paidAmt']!=0">
-      {{friend["friendName"]}} paid ${{friend["paidAmt"]}}
+      {{friend["friendName"]}} paid ${{friend["paidAmt"] |number:'1.0-2':'en-US'}}
       <span *ngIf="friend['comment']!=''">
         ({{friend["comment"]}})
       </span>
@@ -72,17 +72,17 @@
   <p>
     Bill = <span *ngFor = 'let friend of this.billForm.value["friends"]; let i = index;'>
       <ng-container *ngIf="friend['paidAmt']!=0 && isSubmitted && billForm.valid">
-        {{i==0?'':'+'}} ${{friend["paidAmt"]}}
+        {{i==0?'':'+'}} ${{friend["paidAmt"] |number:'1.0-2':'en-US'}}
       </ng-container>
     </span>
     <br/>
-    <ng-container *ngIf="totalBill != 0 && isSubmitted  && billForm.valid">= ${{totalBill}}</ng-container>
+    <ng-container *ngIf="totalBill != 0 && isSubmitted  && billForm.valid">= ${{totalBill |number:'1.0-2':'en-US'}}</ng-container>
     <br/>
     <br/>
     <ng-container *ngIf="individualBill!=0">
       <span *ngFor='let friend of this.billForm.value["friends"]'>
         <ng-container *ngIf='friend["friendName"]!="" && isSubmitted  && billForm.valid'>
-          {{friend["friendName"]}} bill = ${{individualBill |number:'1.0-2'}} - ${{friend["paidAmt"]}} = ${{individualBill - friend["paidAmt"] |number:'1.0-2'}}
+          {{friend["friendName"]}} bill = ${{individualBill |number:'1.0-2':'en-US'}} - ${{friend["paidAmt"] |number:'1.0-2':'en-US'}} = ${{individualBill - friend["paidAmt"] |number:'1.0-2':'en-US'}}
         </ng-container>
         <br/>
       </span>

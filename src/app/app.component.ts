@@ -83,26 +83,31 @@ export class AppComponent implements OnInit, OnDestroy  {
     let header = "Bill for " + this.billForm.value["place"]
     let paymentPart1 = ""
     let paymentPart2 = "Bill = "
-    let paymentPart3 = "= $" + this.totalBill
+    let paymentPart3 = "= $" + this.numberWithCommas(this.totalBill)
     let paymentPart4 = ""
     let website = "Generated from https://ys8610.github.io/ngBillSplit/"
     this.billForm.value["friends"].forEach( (e:{friendName:string,paidAmt:number,comment:string}) =>{
 
       if (e["paidAmt"] > 0 || e["paidAmt"] < 0){
-        paymentPart1 = paymentPart1 + e["friendName"] +" paid $" + e["paidAmt"] + " (" + e["comment"] + ")" +"\n"
-        paymentPart2 = paymentPart2 + "$" + e["paidAmt"] + " +"
+        if(e["comment"]!=''){
+          paymentPart1 = paymentPart1 + e["friendName"] +" paid $" + this.numberWithCommas(e["paidAmt"]) + " (" + e["comment"] + ")" +"\n"
+        }
+        else{
+          paymentPart1 = paymentPart1 + e["friendName"] +" paid $" + this.numberWithCommas(e["paidAmt"]) +"\n"
+        }
+        paymentPart2 = paymentPart2 + "$" + this.numberWithCommas(e["paidAmt"]) + " +"
 
         paymentPart4 = paymentPart4
                       + e["friendName"]
-                      + " bill = $" + this.roundNumber(this.individualBill)
-                      + " - $" + this.roundNumber(e["paidAmt"])
-                      + " = $" + this.roundNumber(this.individualBill - e["paidAmt"])
+                      + " bill = $" + this.numberWithCommas( this.roundNumber(this.individualBill) )
+                      + " - $" + this.numberWithCommas( this.roundNumber(e["paidAmt"]) )
+                      + " = $" + this.numberWithCommas( this.roundNumber(this.individualBill - e["paidAmt"]) )
                       + "\n"
       }
       else {
         paymentPart4 = paymentPart4
         + e["friendName"]
-        + " bill = $" + this.roundNumber(this.individualBill)
+        + " bill = $" + this.numberWithCommas(this.roundNumber(this.individualBill))
         + "\n"
       }
     })
@@ -128,5 +133,9 @@ export class AppComponent implements OnInit, OnDestroy  {
 
   private roundNumber(num: number){
     return Math.round((num + Number.EPSILON) * 100) / 100
+  }
+
+  private numberWithCommas(num : number) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 }
