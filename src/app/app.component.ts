@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit  {
+export class AppComponent implements OnInit, OnDestroy  {
   title = 'ngBillSplit';
 
   billForm !: FormGroup;
   totalBill = 0;
   individualBill = 0;
   isSubmitted = false;
+  formChange !: Subscription;
 
 
   constructor(private fb : FormBuilder, private _snackBar: MatSnackBar){}
@@ -30,6 +32,18 @@ export class AppComponent implements OnInit  {
         })
       ])
     })
+    this.onChange();
+  }
+
+
+  onChange():void{
+    this.formChange = this.billForm.valueChanges.subscribe( (val) =>{
+      this.onSubmit();
+    })
+  }
+
+  ngOnDestroy(): void {
+      this.formChange.unsubscribe();
   }
 
 
